@@ -1,0 +1,7 @@
+<h1>Subscribed Modules</h1>
+<% if a=Subscribe.find(:all, :conditions => ['users_id = ?', current_user.id]) %>	
+
+<%else%>
+hopp
+<%end%>
+

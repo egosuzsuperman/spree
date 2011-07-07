@@ -1,0 +1,32 @@
+<% @body_id = 'product-details' %>
+<div><%= @product.name %></div>
+<div id="product-images" data-hook="product_images">
+  <div id="main-image">
+    <%= render 'image' %>
+  </div>
+</div>
+
+<div id="product-description" data-hook="product_description">
+  <%= product_description(@product) rescue t("product_has_no_description") %>
+  <div data-hook="product_properties">
+    <%= render 'properties' %>
+  </div>
+</div>
+<!--
+<div id="cart-form" data-hook="cart_form">
+  <%= render 'cart_form' %>
+</div>
+--!>
+
+<% if Subscribe.find(:first, :conditions => ['users_id = ? and product_id = ?', current_user.id, @product.id]) %>	
+Abonesiniz.
+<%else%>
+<form name="subscribe" action="/mindfunction/subscribe/create" method="post">
+<input type="hidden" name="subscribe[product_id]" id="subscribe[product_id]" value="<%=@product.id %>" />
+<input type="hidden" name="subscribe[users_id]" id="subscribe[users_id]" value="<%=current_user.id %>" />
+<input type="submit" value="Subscribe" />
+</form>
+<%end%>
+
+<%= render 'taxons' %>
+
